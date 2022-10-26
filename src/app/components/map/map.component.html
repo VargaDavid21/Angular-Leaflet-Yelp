@@ -1,0 +1,153 @@
+<div class="map-container">
+  <div class="map-frame">
+    <div id="map"></div>
+    <aside *ngIf="!businesses || businesses?.length" class="markers">
+      <h3 class="markers__heading">
+        Businesses in the area
+        <mat-icon class="markers__settings">menu</mat-icon>
+      </h3>
+      <section class="markers__container">
+        <p *ngIf="!businesses?.length" class="markers__message-list-empty">
+          Click the map to add a marker and search for businesses around it.
+        </p>
+        <ul *ngIf="businesses?.length" class="markers__list">
+          <li
+            *ngFor="let item of businesses"
+            (click)="highlightBusiness(item.id)"
+            [attr.data-id]="item.id"
+            class="marker"
+            [ngClass]="{ 'marker--selected': item.id === selectedBusiness?.id }"
+          >
+            <img
+              class="marker__image"
+              [src]="
+                item.image_url ? item.image_url : 'assets/business-fallback.png'
+              "
+              [alt]="item.name + 'image unavailable.'"
+            />
+            <div class="marker__details">
+              <div class="marker__name">
+                <strong>{{ item.name }}</strong>
+              </div>
+              <address>
+                <div class="marker__address">
+                  {{
+                    (item.location.city ? item.location.city + ", " : "") +
+                      (item.location.state ? item.location.state + ", " : "") +
+                      item.location.country
+                  }}
+                </div>
+                <div class="marker__address">
+                  {{
+                    (item.location.address1
+                      ? " " + item.location.address1
+                      : "") +
+                      (item.location.address2
+                        ? " " + item.location.address2
+                        : "") +
+                      (item.location.address3
+                        ? " " + item.location.address3
+                        : "")
+                  }}
+                </div>
+                <div class="marker__contact">
+                  Tel:
+                  <a class="" [href]="'tel:' + item.phone">{{
+                    item.phone ? item.phone : "-"
+                  }}</a>
+                </div>
+              </address>
+            </div>
+            <div class="marker__rating">
+              <strong>{{ item.rating }}</strong
+              ><mat-icon>star</mat-icon>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </aside>
+    <aside *ngIf="selectedBusiness" class="selected-business">
+      <h3 class="selected-business__heading">
+        Selected business details
+        <mat-icon
+          (click)="selectedBusiness = undefined"
+          class="selected-business__close"
+          >close</mat-icon
+        >
+      </h3>
+      <section class="selected-business__details">
+        <img
+          class="selected-business__image"
+          [src]="
+            selectedBusiness.image_url
+              ? selectedBusiness.image_url
+              : 'assets/business-fallback.png'
+          "
+          [alt]="selectedBusiness.name + 'image unavailable.'"
+        />
+        <div class="selected-business__rating">
+          <mat-icon
+            *ngFor="
+              let icon of generateIconArrayFromBusinessRating(
+                selectedBusiness.rating
+              )
+            "
+            >{{ icon }}</mat-icon
+          >
+          <a [href]="selectedBusiness.url" target="_blank"
+            >({{ selectedBusiness.review_count }} reviews)</a
+          >
+        </div>
+        <div class="selected-business__name">
+          <strong>{{ selectedBusiness.name }}</strong>
+        </div>
+        <address>
+          <div class="selected-business__address">
+            {{ selectedBusiness.location.display_address.join(", ") }}
+          </div>
+          <div
+            *ngIf="selectedBusiness.hours?.length"
+            class="selected-business__status"
+          >
+            <span
+              *ngIf="selectedBusiness.hours?.[0]?.is_open_now"
+              class="selected-business__status--open"
+              >OPEN NOW</span
+            >
+            <span
+              *ngIf="!selectedBusiness.hours?.[0]?.is_open_now"
+              class="selected-business__status--closed"
+              >CLOSED</span
+            >
+          </div>
+          <div
+            *ngIf="selectedBusiness.phone"
+            class="selected-business__contact"
+          >
+            <mat-icon>phone</mat-icon>
+            <a class="" [href]="'tel:' + selectedBusiness.phone">{{
+              selectedBusiness.phone
+            }}</a>
+          </div>
+        </address>
+      </section>
+    </aside>
+    <div
+      *ngIf="showCursorCoordinates"
+      [ngStyle]="{
+        top: 'calc(' + mousePosition?.y + 'px - 7rem)',
+        left: 'calc(' + mousePosition?.x + 'px + 1rem)'
+      }"
+      class="cursor-coordinates"
+    >
+      <div class="cursor-coordinates__latitude">
+        Latitude:
+        {{ cursorCoordinates ? cursorCoordinates.lat.toFixed(4) : "-" }}
+      </div>
+      <div class="divcursor-coordinates__longitude">
+        Longitude:
+        {{ cursorCoordinates ? cursorCoordinates.lng.toFixed(4) : "-" }}
+      </div>
+    </div>
+  </div>
+</div>

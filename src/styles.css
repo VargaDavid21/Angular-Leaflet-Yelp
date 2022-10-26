@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+html {
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background-color: rgba(172, 172, 172, 0.7);
+}
+
+/* Scrollbar on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(88, 88, 88, 0.6) rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbar on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 0.3125rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(88, 88, 88, 0.6);
+  border-radius: 1rem;
+}
+
+*::-webkit-scrollbar-track-piece:start,
+*::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+}
+
+.leaflet-touch .leaflet-bar {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.leaflet-bar a {
+  background-color: #f2efe9;
+}
+
+.leaflet-bar a:hover {
+  background-color: #4597d0;
+}
+
+.leaflet-bar a.leaflet-disabled {
+  background-color: #dad7d0;
+}
+
+.leaflet-control-attribution {
+  display: none;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

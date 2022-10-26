@@ -1,0 +1,291 @@
+.map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0.875rem;
+  overflow: hidden;
+}
+
+.map-frame {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
+}
+
+#map {
+  height: 100%;
+}
+
+.markers {
+  left: 3rem;
+}
+
+.selected-business {
+  right: 3rem;
+  height: 30rem;
+  max-height: calc(100% - 5.5rem);
+}
+
+.markers,
+.selected-business {
+  position: absolute;
+  top: 3rem;
+  width: 24rem;
+  z-index: 400;
+  background-color: rgba(172, 172, 172, 0.7);
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.markers__settings {
+  display: none;
+}
+
+.markers__settings,
+.selected-business__close {
+  position: absolute;
+  top: calc(50% - 0.75rem);
+  right: 0.5rem;
+  color: rgb(242, 239, 233);
+  cursor: pointer;
+}
+
+.markers__heading,
+.selected-business__heading {
+  position: sticky;
+  z-index: 500;
+  top: 0;
+  margin: 0;
+  padding: 0.5rem;
+  background: #4597d0;
+  box-shadow: 0 1px 2px 0 grey;
+}
+
+.markers__message-list-empty {
+  margin-inline: 2rem;
+  text-align: justify;
+}
+
+.markers__list {
+  max-height: calc(100vh - 9.875rem);
+  margin: 0 0 0 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  overflow-y: scroll;
+}
+
+.marker {
+  display: flex;
+  position: relative;
+  margin-block: 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 0.75rem;
+  border-left: 0.25rem solid transparent;
+  background-color: rgb(242, 239, 233);
+  box-shadow: 1px 1px 3px 1px rgb(0, 0, 0, 0.3);
+  align-items: center;
+}
+
+.marker:hover,
+.marker--selected {
+  background-color: rgb(221 221 221);
+  border-left: 0.25rem solid #4597d0;
+  cursor: pointer;
+}
+
+.marker--selected,
+.marker--selected:hover {
+  background-color: #aaecff;
+}
+
+.marker,
+.marker:hover {
+  transition: background-color ease 150ms, border-left ease 150ms;
+}
+
+.marker:first-of-type {
+  margin-top: 0;
+}
+
+.marker:last-of-type {
+  margin-bottom: 0;
+}
+
+.marker__image {
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 3px 1px rgb(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.marker__details {
+  max-width: calc(100% - 5rem);
+  margin-left: 1rem;
+  text-align: left;
+}
+
+.marker__name {
+  margin-bottom: 0.125rem;
+  font-size: 0.875rem;
+}
+
+.marker__name,
+.marker__address {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.15;
+}
+
+.marker__contact,
+.selected-business__contact {
+  font-style: normal;
+  margin-top: 0.125rem;
+}
+
+.marker__contact a,
+.selected-business__rating a,
+.selected-business__contact a {
+  color: #4597d0;
+  text-decoration: none;
+}
+
+.marker__address,
+.marker__contact {
+  font-size: 0.75rem;
+}
+
+.marker__rating {
+  display: flex;
+  --f: 0.3125rem; /* control the folded part*/
+  --r: 0.4375rem; /* control the ribbon shape */
+  --t: 3.5rem; /* the top offset */
+  width: 3.5rem;
+  position: absolute;
+  inset: var(--t) calc(-1 * var(--f)) auto auto;
+  padding: 0.125rem 0.25rem calc(0.125rem + var(--f)) calc(0.25rem + var(--r));
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--f)),
+    calc(100% - var(--f)) 100%,
+    calc(100% - var(--f)) calc(100% - var(--f)),
+    0 calc(100% - var(--f)),
+    var(--r) calc(50% - var(--f) / 2)
+  );
+  background: #ffd500;
+  box-shadow: 0 calc(-1 * var(--f)) 0 inset #0005;
+  font-size: 0.75rem;
+  align-items: end;
+  justify-content: end;
+}
+
+.marker__rating > mat-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.125rem;
+  font-size: 1rem;
+}
+
+.selected-business__details {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 1.875rem);
+  height: calc(100% - 3.375rem);
+  margin: 0.5rem 1rem;
+  padding: 1.25rem 2rem;
+  background-color: #f2efe9;
+  border-right: 0.25rem solid #4597d0;
+  box-shadow: -1px 1px 3px 1px rgb(0, 0, 0, 0.3);
+  align-items: start;
+  text-align: left;
+}
+
+.selected-business__image {
+  width: 100%;
+  height: 12rem;
+  border-left: 0.25rem solid #ffd500;
+  box-shadow: 0 0 4px 2px rgb(0, 0, 0, 0.3);
+  object-fit: cover;
+}
+
+.selected-business__rating {
+  display: flex;
+  margin-block: 0.75rem 0.5rem;
+  color: #ffd500;
+  font-size: 1rem;
+  font-weight: bold;
+  align-items: center;
+  align-self: center;
+}
+
+.selected-business__rating a,
+.selected-business__contact a {
+  margin-left: 0.25rem;
+}
+
+.selected-business__name {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.selected-business__status {
+  position: absolute;
+  bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.selected-business__status--open {
+  color: green;
+}
+
+.selected-business__status--closed {
+  color: red;
+}
+
+.selected-business__contact {
+  display: flex;
+  position: absolute;
+  right: 3.25rem;
+  bottom: 1.5rem;
+  align-items: end;
+}
+
+.cursor-coordinates {
+  position: absolute;
+  z-index: 400;
+  background-color: rgb(242, 239, 233);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.25rem;
+  font-size: 0.75rem;
+}
+
+@media (max-height: 529px) {
+  .markers {
+    left: 0;
+  }
+
+  .selected-business {
+    right: 0;
+  }
+
+  .markers,
+  .selected-business {
+    top: 0;
+    height: 100%;
+    max-height: 100%;
+  }
+
+  .markers__list,
+  .selected-business__details {
+    height: 100%;
+    max-height: calc(100vh - 4.125rem);
+  }
+}
