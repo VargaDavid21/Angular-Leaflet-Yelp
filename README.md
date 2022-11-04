@@ -22,3 +22,10 @@ This can be enabled temporarily from https://cors-anywhere.herokuapp.com/corsdem
 > npm start
 
 Application should now run on [localhost:4200](http://localhost:4200)!
+
+Screenshots:
+1. ![image](https://user-images.githubusercontent.com/101416186/199999693-0c54fdac-93ca-4964-8398-0281d9333972.png)
+
+2. ![image](https://user-images.githubusercontent.com/101416186/200000054-53f707fb-89f3-4737-aecc-0be6459861a6.png)
+
+
